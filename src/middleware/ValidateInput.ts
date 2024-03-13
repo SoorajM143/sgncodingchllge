@@ -31,11 +31,19 @@ export const validateInput = ({ query }: any) => {
         throw new BadRequestError({
           code: 400,
           message:
-            "Invalid start date: Select Date between today and last 30 days",
+            "Invalid start date: Enter Date between today and last 30 days",
           logging: true,
         });
       }
     }
+  }
+  else if(!startDate && endDate){
+    throw new BadRequestError({
+        code: 400,
+        message:
+          "Invalid start date: Enter start Date to search",
+        logging: true,
+      });
   }
 
   //Validation for stat and metrics entered by user

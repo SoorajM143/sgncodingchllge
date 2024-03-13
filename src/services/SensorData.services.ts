@@ -14,7 +14,7 @@ export class SensorDataService {
       .where("SensorData.sensorId= :sensorId", { sensorId });
 
     //if no date are provided latest data is fetched for the sensorId
-      if (!(startDate && endDate)) {
+    if (!(startDate && endDate)) {
       const now = new Date();
       now.setDate(now.getDate() - 1);
       queryBuilder.andWhere("SensorData.recordedTime >= :start", {
@@ -22,15 +22,15 @@ export class SensorDataService {
       });
     } else {
       queryBuilder
-        .andWhere("SensorData.recordedTime > :start", {
+        .andWhere("SensorData.recordedTime >= :start", {
           start: new Date(startDate as string),
         })
-        .andWhere("SensorData.recordedTime < :end", {
+        .andWhere("SensorData.recordedTime =< :end", {
           end: new Date(endDate as string),
         });
     }
     //querybuilder to display metric and stats based on user input
-  if(metrics && stats){
+    if (metrics && stats) {
       const metric = (metrics as string).split(",");
       let len = metric.length;
       queryBuilder.select(
@@ -42,7 +42,6 @@ export class SensorDataService {
         queryBuilder.addSelect(`${stats}(${col})`, `${stats} of ${metric[i]}:`);
       }
     }
-    
 
     return stats ? queryBuilder.getRawOne() : queryBuilder.getMany();
   }
