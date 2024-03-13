@@ -14,7 +14,7 @@ export class SensorDataService {
 
     if (!(startDate && endDate)) {
       const now = new Date();
-      now.setDate(now.getDate() - 2);
+      now.setDate(now.getDate() - 1);
       queryBuilder.andWhere("SensorData.recordedTime >= :start", {
         start: now,
       });
