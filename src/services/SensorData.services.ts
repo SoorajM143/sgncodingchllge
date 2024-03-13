@@ -16,16 +16,26 @@ export class SensorDataService {
     //if no date are provided latest data is fetched for the sensorId
     if (!(startDate && endDate)) {
       const now = new Date();
-      now.setDate(now.getDate() - 1);
-      queryBuilder.andWhere("SensorData.recordedTime >= :start", {
-        start: now,
-      });
+      if (startDate && !endDate) {
+        queryBuilder
+          .andWhere("SensorData.recordedTime >= :start", {
+            start: new Date(startDate as string),
+          })
+          .andWhere("SensorData.recordedTime <= :end", {
+            end: now,
+          });
+      } else {
+        now.setDate(now.getDate() - 1);
+        queryBuilder.andWhere("SensorData.recordedTime >= :start", {
+          start: now,
+        });
+      }
     } else {
       queryBuilder
-        .andWhere("SensorData.recordedTime >= :start", {
+        .andWhere("SensorData.recordedTime > :start", {
           start: new Date(startDate as string),
         })
-        .andWhere("SensorData.recordedTime =< :end", {
+        .andWhere("SensorData.recordedTime < :end", {
           end: new Date(endDate as string),
         });
     }
