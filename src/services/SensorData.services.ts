@@ -27,7 +27,7 @@ export class SensorDataService {
           end: new Date(endDate as string),
         });
     }
-
+  if(metrics && stats){
       const metric = (metrics as string).split(",");
       let len = metric.length;
       queryBuilder.select(
@@ -38,6 +38,7 @@ export class SensorDataService {
         const col = metric[i].toLowerCase();
         queryBuilder.addSelect(`${stats}(${col})`, `${stats} of ${metric[i]}:`);
       }
+    }
     
 
     return stats ? queryBuilder.getRawOne() : queryBuilder.getMany();

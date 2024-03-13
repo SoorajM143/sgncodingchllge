@@ -39,7 +39,7 @@ export const validateInput = ({query}:any) =>{
           }
         })
       }
-      else {
+      else if(stats || metrics) {
         throw new BadRequestError({code: 400, message: "Invalid Query: Enter Stat and MetricS", logging: true})
       }
   
