@@ -5,21 +5,16 @@ import { validateInput } from "../middleware/ValidateInput";
 const service = new SensorDataService();
 
 export class SensorDataController {
-  
-
-  public reading  = async(
-    {query}: Request,
+  public reading = async (
+    { query }: Request,
     res: Response,
-    next:NextFunction
-  ) => {  
-             validateInput({query})
-             try {
-                   return service.getReading({query});
-                 }
-             catch(error){
-                  next(error);
-                }
-    
-
-  }
+    next: NextFunction
+  ) => {
+    validateInput({ query });
+    try {
+      return service.getReading({ query });
+    } catch (error) {
+      next(error);
+    }
+  };
 }

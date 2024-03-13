@@ -1,9 +1,9 @@
-// import { Connection, createConnection } from "typeorm";
-import { DataSource, DataSourceOptions } from "typeorm";
+import { DataSource } from "typeorm";
 import {AppDataSource} from '../src/data-source';
 
 import Database from "better-sqlite3";
 
+//helper to establish connection with DB for testing
 export class TestHelper {
   private static _instance: TestHelper;
 

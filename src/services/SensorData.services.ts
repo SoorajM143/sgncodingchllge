@@ -8,11 +8,13 @@ export class SensorDataService {
   async getReading({ query }: any) {
     const { sensorId, startDate, endDate, metrics, stats } = query;
 
+    //querybuilder for sensor data fetch
     const queryBuilder = this.sensorDataRepository
       .createQueryBuilder("SensorData")
       .where("SensorData.sensorId= :sensorId", { sensorId });
 
-    if (!(startDate && endDate)) {
+    //if no date are provided latest data is fetched for the sensorId
+      if (!(startDate && endDate)) {
       const now = new Date();
       now.setDate(now.getDate() - 1);
       queryBuilder.andWhere("SensorData.recordedTime >= :start", {
@@ -27,6 +29,7 @@ export class SensorDataService {
           end: new Date(endDate as string),
         });
     }
+    //querybuilder to display metric and stats based on user input
   if(metrics && stats){
       const metric = (metrics as string).split(",");
       let len = metric.length;
