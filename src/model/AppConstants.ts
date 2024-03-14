@@ -10,5 +10,5 @@ export enum Stats {
 export enum Metrics{
     temperature = 'temperature',
     humididty = 'humidity',
-    wind = 'wind'
+    windspeed = 'windspeed'
 }
