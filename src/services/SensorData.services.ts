@@ -1,5 +1,4 @@
 import { AppDataSource } from "../data-source";
-import { NextFunction, Request, Response } from "express";
 import { SensorData } from "../entity/SensorData";
 
 export class SensorDataService {
@@ -32,10 +31,10 @@ export class SensorDataService {
       }
     } else {
       queryBuilder
-        .andWhere("SensorData.recordedTime > :start", {
+        .andWhere("SensorData.recordedTime >= :start", {
           start: new Date(startDate as string),
         })
-        .andWhere("SensorData.recordedTime < :end", {
+        .andWhere("SensorData.recordedTime <= :end", {
           end: new Date(endDate as string),
         });
     }

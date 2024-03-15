@@ -1,7 +1,7 @@
 import { Metrics } from "./AppConstants"
 
 
-export interface SensorDataQuery{
+export interface SensorDataResponse{
     id: number,
     startDate?: Date,
     endDate?: Date,
